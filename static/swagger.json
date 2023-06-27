@@ -1,0 +1,323 @@
+{
+"openapi": "3.0.0",
+"info": {
+    "description": "Api para Trabajo final Codo a Codo 2023 con Python",
+    "version": "1.0.0",
+    "title": "Api Library ",
+    "contact": {
+    "email": "codoacodo.grupo14@gmail.com"
+    },
+    "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+    }
+},
+"servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Books",
+      "description": "CRUD documentation for Books"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Returns All books or filtered books for title or author ",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Title of the book",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "description": "author of the book",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "category of the book",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequests"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Add a book ",
+        "requestBody": {
+          "description": "Book object containing title, author, and availability",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "example": {
+                  "title": "Notas al Pie",
+                  "author": "Alejandro Dolina",
+                  "availability": "available"
+                }
+              }
+            }
+          }
+        },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequests"
+              }
+      }
+    },
+    "400": {
+      "description": "Failed. Bad post data."
+    }
+  }
+    },
+      "/books/{id}": {
+        "delete": {
+          "tags": [
+            "Books"
+          ],
+          "summary": "Delete for ID book ",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID book",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequests"
+              }
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        },
+        "put": {
+          "tags": [
+            "Books"
+          ],
+          "summary": "Change some fields of book ",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID book",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "availability": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "title": "Notas al Pie",
+                    "author": "Alejandro Dolina",
+                    "availability": "available"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequests"
+              }
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "Admins"
+        ],
+        "summary": "Register an Admin ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "nuevoUsuario",
+                  "password": "hola1234"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequests"
+            }
+          }
+        },
+        "400": {
+          "description": "Failed. Bad post data."
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Admins"
+        ],
+        "summary": "Register an Admin ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "nuevoUsuario",
+                  "password": "hola1234"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequests"
+            }
+          }
+        },
+        "400": {
+          "description": "Failed. Bad post data."
+        }
+      }
+    }
+  },
+"components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "bookRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "bookRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "number"
+          }
+        }
+      },
+      "bookRequests": {
+        "type": "object",
+        "properties": {
+          "bookRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/bookRequest"
+            }
+          }
+        }
+      }
+    }
+  }
+}
